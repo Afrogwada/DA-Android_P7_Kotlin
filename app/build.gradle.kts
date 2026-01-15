@@ -44,6 +44,11 @@ android {
 }
 
 dependencies {
+    //Room
+    implementation("androidx.room:room-runtime:2.4.3")
+    implementation("androidx.room:room-compiler:2.4.3")
+    implementation("androidx.room:room-ktx:2.4.3")
+
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.42")
@@ -67,4 +72,6 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
-
+configurations.all {
+    exclude(group = "com.intellij", module = "annotations")
+}

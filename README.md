@@ -13,6 +13,7 @@ Arista est une application Android destinée à suivre les données personnelles
 ## Installation
 - Clonez ce dépôt dans votre environnement local.
 - Ouvrez le projet avec Android Studio.
+- File > Settings > Build, Execution, Deployment > Build Tools > Gradle et vérifiez que la Gradle JDK = 17
 - Lancez l'émulateur ou connectez votre appareil Android.
 - Compilez et exécutez l'application.
 

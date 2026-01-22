@@ -7,7 +7,7 @@ import com.openclassrooms.arista.data.entity.ExerciseDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ExerciseDtoDao {
+interface ExerciseDao {
     @Insert
     suspend fun insertExercise(exercise: ExerciseDto): Long
 

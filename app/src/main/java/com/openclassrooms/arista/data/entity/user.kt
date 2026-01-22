@@ -4,21 +4,21 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "sleep")
-data class SleepDto(
+@Entity(tableName = "user")
+data class UserDto(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0,
 
 
-    @ColumnInfo(name = "start_time")
-    var startTime: Long,
+    @ColumnInfo(name = "name")
+    var name: String,
 
 
-    @ColumnInfo(name = "duration")
-    var duration: Int,
+    @ColumnInfo(name = "email")
+    var email: String,
 
 
-    @ColumnInfo(name = "quality")
-    var quality: Int
+    @ColumnInfo(name = "password")
+    var password: String
 )

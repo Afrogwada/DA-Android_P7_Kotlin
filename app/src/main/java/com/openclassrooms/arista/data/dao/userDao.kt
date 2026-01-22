@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
     @Insert
-    suspend fun insertSleep(user: UserDto): Long
+    suspend fun insertUser(user: UserDto): Long
 
 
     @Query("SELECT * FROM user")

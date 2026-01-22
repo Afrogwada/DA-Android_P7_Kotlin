@@ -73,6 +73,17 @@ abstract class AppDatabase : RoomDatabase() {
                         .toEpochMilli(), duration = 450, quality = 3
                 )
             )
+            userDao.insertUser(
+                UserDto(
+                    name= "testname",
+                    email = "emailtest@Arista.com",
+                    password = "12345"
+
+                )
+            )
+
+
+
         }
     }
 }

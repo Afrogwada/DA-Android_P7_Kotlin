@@ -53,7 +53,7 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.42")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
-    implementation("androidx.room:room-runtime-android:2.8.4")
+
     kapt("com.google.dagger:hilt-android-compiler:2.42")
 
     implementation("androidx.core:core-ktx:1.7.0")

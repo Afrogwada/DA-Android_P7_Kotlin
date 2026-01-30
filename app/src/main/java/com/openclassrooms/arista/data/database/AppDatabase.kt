@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.openclassrooms.arista.data.dao.ExerciseDao
 import com.openclassrooms.arista.data.dao.SleepDao
@@ -11,12 +12,14 @@ import com.openclassrooms.arista.data.dao.UserDao
 import com.openclassrooms.arista.data.entity.UserDto
 import com.openclassrooms.arista.data.entity.SleepDto
 import com.openclassrooms.arista.data.entity.ExerciseDto
+import com.openclassrooms.arista.domain.model.ExerciseCategory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 @Database(entities = [UserDto::class, SleepDto::class, ExerciseDto::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun sleepDao(): SleepDao
@@ -30,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.sleepDao(), database.userDao())
+                    populateDatabase(database.exerciseDao(),database.sleepDao(), database.userDao())
                 }
             }
         }
@@ -58,7 +61,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
 
-        suspend fun populateDatabase(sleepDao: SleepDao, userDao: UserDao) {
+        suspend fun populateDatabase(exerciseDao: ExerciseDao, sleepDao: SleepDao, userDao: UserDao) {
 
 
             sleepDao.insertSleep(
@@ -78,6 +81,16 @@ abstract class AppDatabase : RoomDatabase() {
                     name= "testname",
                     email = "emailtest@Arista.com",
                     password = "12345"
+
+                )
+            )
+            exerciseDao.insertExercise(
+                ExerciseDto(
+                    startTime = LocalDateTime.now().minusDays(1).atZone(ZoneOffset.UTC).toInstant()
+                        .toEpochMilli(),
+                    duration = 480,
+                    intensity = 4,
+                    category= ExerciseCategory.Football
 
                 )
             )

@@ -3,6 +3,7 @@ package com.openclassrooms.arista.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.openclassrooms.arista.domain.model.ExerciseCategory
 
 @Entity(tableName = "exercise")
 data class ExerciseDto(
@@ -20,7 +21,7 @@ data class ExerciseDto(
 
 
     @ColumnInfo(name = "category")
-    var category: String,
+    var category: ExerciseCategory,
 
 
     @ColumnInfo(name = "intensity")

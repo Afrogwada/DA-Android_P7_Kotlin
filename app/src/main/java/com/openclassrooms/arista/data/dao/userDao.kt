@@ -18,4 +18,10 @@ interface UserDao {
 
     @Query("DELETE FROM user WHERE id = :id")
     suspend fun deleteUserById(id: Long)
+
+    @Query("SELECT * FROM user WHERE id = :id LIMIT 1")
+    fun getUserById(id: Long): Flow<UserDto?>
+
+    @Query("SELECT * FROM user LIMIT 1")
+    fun getCurrentUser(id: Long): Flow<UserDto?>
 }

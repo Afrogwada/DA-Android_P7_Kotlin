@@ -1,6 +1,7 @@
 package com.openclassrooms.arista.ui.exercise
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.openclassrooms.arista.domain.model.Exercise
 import com.openclassrooms.arista.domain.usecase.AddNewExerciseUseCase
 import com.openclassrooms.arista.domain.usecase.DeleteExerciseUseCase
@@ -9,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,18 +26,27 @@ class ExerciseViewModel @Inject constructor(
         loadAllExercises()
     }
 
+    // Utilisation de viewModelScope.launch pour appeler une fonction suspend
     fun deleteExercise(exercise: Exercise) {
-        deleteExerciseUseCase.execute(exercise)
-        loadAllExercises()
+        viewModelScope.launch {
+            deleteExerciseUseCase.execute(exercise)
+            // Note : Pas besoin de rappeler loadAllExercises() car on utilise Flow.collect() donc mise à jour en temps réel
+        }
     }
 
+    // On "collecte" le Flow pour recevoir les mises à jour en temps réel
     private fun loadAllExercises() {
-        val exercises = getAllExercisesUseCase.execute()
-        _exercisesFlow.value = exercises
+        viewModelScope.launch {
+            getAllExercisesUseCase.execute().collect { exercises ->
+                _exercisesFlow.value = exercises
+            }
+        }
     }
 
+    // Utilisation de viewModelScope.launch pour l'ajout asynchrone
     fun addNewExercise(exercise: Exercise) {
-        addNewExerciseUseCase.execute(exercise)
-        loadAllExercises()
+        viewModelScope.launch {
+            addNewExerciseUseCase.execute(exercise)
+        }
     }
 }

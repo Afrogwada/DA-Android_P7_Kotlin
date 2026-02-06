@@ -2,10 +2,9 @@ package com.openclassrooms.arista.domain.usecase
 
 import com.openclassrooms.arista.data.repository.ExerciseRepository
 import com.openclassrooms.arista.domain.model.Exercise
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetAllExercisesUseCase @Inject constructor(private val exerciseRepository: ExerciseRepository) {
-    fun execute(): List<Exercise> {
-        return exerciseRepository.allExercises
-    }
+    fun execute(): Flow<List<Exercise>> = exerciseRepository.getAllExercises()
 }

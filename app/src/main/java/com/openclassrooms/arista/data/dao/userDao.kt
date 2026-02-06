@@ -23,5 +23,5 @@ interface UserDao {
     fun getUserById(id: Long): Flow<UserDto?>
 
     @Query("SELECT * FROM user LIMIT 1")
-    fun getCurrentUser(id: Long): Flow<UserDto?>
+    fun getCurrentUser(): Flow<UserDto?>
 }
